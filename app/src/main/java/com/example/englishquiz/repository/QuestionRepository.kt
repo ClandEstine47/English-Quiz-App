@@ -12,7 +12,7 @@ class QuestionRepository @Inject constructor(
 ) {
     private val dataOrException = DataOrException<ArrayList<QuestionItem>, Boolean, Exception>()
 
-    suspend fun getAllQuestions(): DataOrException<ArrayList<QuestionItem>, Boolean, java.lang.Exception> {
+    suspend fun getAllQuestions(): DataOrException<ArrayList<QuestionItem>, Boolean, Exception> {
 
         try {
             dataOrException.loading = true

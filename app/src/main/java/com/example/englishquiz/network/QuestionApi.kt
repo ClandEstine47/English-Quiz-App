@@ -7,6 +7,6 @@ import javax.inject.Singleton
 @Singleton
 interface QuestionApi {
 
-    @GET("file/d/1544EvgrQ-QJ2PAPGv_ediWDsTnv8fFWL/view")
+    @GET("file/d/1544EvgrQ-QJ2PAPGv_ediWDsTnv8fFWL/view?usp=sharing")
     suspend fun getAllQuestions(): Question
 }
