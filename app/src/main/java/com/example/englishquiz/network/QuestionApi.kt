@@ -1,12 +1,13 @@
 package com.example.englishquiz.network
 
 import com.example.englishquiz.model.Question
+import com.example.englishquiz.model.QuestionItem
 import retrofit2.http.GET
 import javax.inject.Singleton
 
 @Singleton
 interface QuestionApi {
 
-    @GET("file/d/1544EvgrQ-QJ2PAPGv_ediWDsTnv8fFWL/view?usp=sharing")
+    @GET("quizList.json")
     suspend fun getAllQuestions(): Question
 }

@@ -17,18 +17,18 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    val gson = GsonBuilder()
-        .serializeNulls()
-        .serializeSpecialFloatingPointValues()
-        .setLenient()
-        .create()
+//    val gson = GsonBuilder()
+//        .serializeNulls()
+//        .serializeSpecialFloatingPointValues()
+//        .setLenient()
+//        .create()
 
     @Singleton
     @Provides
     fun provideQuestionApi(): QuestionApi {
         return Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(QuestionApi::class.java)
     }

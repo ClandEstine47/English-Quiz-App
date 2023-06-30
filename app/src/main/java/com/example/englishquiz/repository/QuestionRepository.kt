@@ -18,7 +18,6 @@ class QuestionRepository @Inject constructor(
             dataOrException.loading = true
             dataOrException.data = api.getAllQuestions()
             if (dataOrException.data.toString().isNotEmpty()) dataOrException.loading = false
-            
         } catch (exception: Exception) {
             dataOrException.e = exception
             Log.d("Exc", "getAllQuestions: ${dataOrException.e!!.localizedMessage}")
