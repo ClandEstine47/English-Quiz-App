@@ -1,19 +1,18 @@
 package com.example.englishquiz
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.englishquiz.screen.QuestionsViewModel
+import com.example.englishquiz.screen.QuizEnd
+import com.example.englishquiz.screen.QuizHome
+import com.example.englishquiz.screen.Screens
 import com.example.englishquiz.ui.theme.EnglishQuizTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,28 +22,40 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             EnglishQuizTheme {
-                QuizHome()
+                val viewModel = viewModel<QuestionsViewModel>()
+                val navController = rememberNavController()
+                NavHost(
+                    navController = navController,
+                    startDestination = Screens.QuizHome.name
+                ) {
+                    composable(Screens.QuizHome.name) {
+                        QuizHome(
+                            navController,
+                            viewModel
+                        )
+                    }
+
+                    composable(
+                        Screens.QuizEnd.name + "/{correctAnswer}/{totalQuestion}",
+                        arguments = listOf(
+                            navArgument("correctAnswer") {
+                                type = NavType.IntType
+                                defaultValue = 0
+                            },
+                            navArgument("totalQuestion") {
+                                type = NavType.IntType
+                                defaultValue = 0
+                            }
+                        )
+                    ) { backStackEntry ->
+                        QuizEnd(
+                            navController = navController,
+                            backStackEntry.arguments?.getInt("correctAnswer") ?: 0,
+                            backStackEntry.arguments?.getInt("totalQuestion")?: 0
+                        )
+                    }
+                }
             }
-        }
-    }
-}
-
-@Composable
-fun QuizHome(viewModel: QuestionsViewModel = hiltViewModel()) {
-    Questions(viewModel)
-}
-
-@Composable
-fun Questions(viewModel: QuestionsViewModel) {
-
-    val questions = viewModel.data.value.data?.toMutableList()
-    if (viewModel.data.value.loading == true) {
-        CircularProgressIndicator()
-        Log.d("load", "Questions: Loading")
-    } else {
-        Log.d("stop_load", "Questions: loading stopped")
-        questions?.forEach{ questionitem ->
-            Log.d("Questions", "Questions: ${questionitem.question}")
         }
     }
 }

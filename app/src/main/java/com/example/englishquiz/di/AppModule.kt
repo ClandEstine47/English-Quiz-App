@@ -17,12 +17,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-//    val gson = GsonBuilder()
-//        .serializeNulls()
-//        .serializeSpecialFloatingPointValues()
-//        .setLenient()
-//        .create()
-
     @Singleton
     @Provides
     fun provideQuestionApi(): QuestionApi {

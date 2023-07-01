@@ -1,11 +1,5 @@
 package com.example.englishquiz.model
 
-//data class QuestionItem(
-//    val correct_answer: String,
-//    val options: List<String>,
-//    val question: String
-//)
-
 import com.google.gson.annotations.SerializedName
 
 data class QuestionItem(
